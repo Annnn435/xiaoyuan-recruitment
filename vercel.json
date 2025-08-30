@@ -1,11 +1,11 @@
 {
   "version": 2,
   "name": "xiaoyuan-recruitment",
-  "buildCommand": "npx --yes vite build",
+  "buildCommand": "npm run build",
   "outputDirectory": "frontend/dist",
   "installCommand": "npm install",
   "rootDirectory": "frontend",
-  "framework": null,
+  "framework": "vite",
   "rewrites": [
     {
       "source": "/(.*)",
