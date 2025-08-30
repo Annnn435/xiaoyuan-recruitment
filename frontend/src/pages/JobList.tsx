@@ -7,7 +7,7 @@ import { locationOptions } from '../data/locations';
 import dayjs from 'dayjs';
 
 const { Title } = Typography;
-const { Search } = Input;
+// const { Search } = Input; // 暂时注释掉未使用的导入
 const { Option } = Select;
 const { confirm } = Modal;
 
@@ -72,7 +72,7 @@ const JobList: React.FC = () => {
   const [savedFilters, setSavedFilters] = useState<{name: string, filters: typeof filters}[]>([]);
   
   // 添加筛选条件名称状态
-  const [filterName, setFilterName] = useState('');
+  // const [filterName, setFilterName] = useState(''); // 暂时注释掉未使用的状态
 
   // 添加加载状态
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -447,7 +447,7 @@ const JobList: React.FC = () => {
       title: '职位描述',
       dataIndex: 'description',
       key: 'description',
-      ellipsis: true,
+      // ellipsis: true, // 移除不支持的属性
       render: (text: string) => (
         <Typography.Paragraph ellipsis={{ rows: 2 }} style={{ marginBottom: 0 }}>
           {text || '暂无描述'}
@@ -834,12 +834,12 @@ const JobList: React.FC = () => {
           defaultPageSize: 20
         }}
         loading={isLoading}
-        onChange={(pagination, tableFilters, sorter) => {
+        onChange={(_, __, sorter) => {
           // 处理排序变化
           if (sorter && !Array.isArray(sorter) && sorter.field) {
             setSortConfig({
               field: sorter.field as string,
-              order: sorter.order
+              order: sorter.order as 'ascend' | 'descend' | undefined
             });
           }
         }}
