@@ -9,6 +9,8 @@ app = Flask(__name__)
 
 # 配置应用
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY') or 'dev-secret-key'
+
+# 修改这一行，使用环境变量配置数据库连接
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') or 'postgresql://postgres:jzj200366@localhost:5432/recruitment_db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -119,20 +121,19 @@ def get_jobs():
         print(f"查询错误: {str(e)}")
         return jsonify({'error': str(e), 'message': '查询职位列表失败'}), 500
 
-# 在应用上下文中创建表和插入示例数据
-def init_database():
+# 在文件最后修改这部分
+if __name__ == '__main__':
+    # 在启动前初始化数据库
     with app.app_context():
         try:
-            # 创建所有表
-            print("正在创建数据库表...")
+            print("🔄 开始初始化数据库...")
             db.create_all()
             print("✅ 数据库表创建成功")
             
             # 检查是否已有数据
             job_count = Job.query.count()
             if job_count == 0:
-                # 插入示例数据
-                print("正在插入示例数据...")
+                print("📝 插入示例数据...")
                 sample_jobs = [
                     Job(
                         title='高级Python开发工程师',
@@ -165,66 +166,25 @@ def init_database():
                         experience='1-3年',
                         education='本科',
                         industry='互联网'
-                    ),
-                    Job(
-                        title='数据分析师',
-                        company='数据智能科技',
-                        location='深圳',
-                        salary_min=18000,
-                        salary_max=30000,
-                        description='负责数据分析和可视化，提供决策支持',
-                        source='BOSS直聘',
-                        url='https://example.com/job3',
-                        status='招聘中',
-                        target_group='社招',
-                        job_nature='全职',
-                        experience='2-4年',
-                        education='硕士',
-                        industry='大数据'
-                    ),
-                    Job(
-                        title='产品经理',
-                        company='创新科技有限公司',
-                        location='杭州',
-                        salary_min=22000,
-                        salary_max=38000,
-                        description='负责产品规划和设计，推动产品落地',
-                        source='拉勾网',
-                        url='https://example.com/job4',
-                        status='招聘中',
-                        target_group='社招',
-                        job_nature='全职',
-                        experience='3-5年',
-                        education='本科',
-                        industry='互联网'
-                    ),
-                    Job(
-                        title='算法工程师',
-                        company='人工智能公司',
-                        location='北京',
-                        salary_min=30000,
-                        salary_max=50000,
-                        description='负责机器学习算法研发和优化',
-                        source='智联招聘',
-                        url='https://example.com/job5',
-                        status='招聘中',
-                        target_group='社招',
-                        job_nature='全职',
-                        experience='3-5年',
-                        education='硕士',
-                        industry='人工智能'
                     )
                 ]
                 db.session.add_all(sample_jobs)
                 db.session.commit()
                 print(f"✅ 已插入 {len(sample_jobs)} 条示例数据")
             else:
-                print(f"✅ 数据库中已有 {job_count} 条记录")
-            
+                print(f"ℹ️ 数据库中已有 {job_count} 条记录")
+                
         except Exception as e:
             print(f"❌ 数据库初始化错误: {str(e)}")
-
-# 在文件最后修改这部分
-if __name__ == '__main__':
+            # 不要因为数据库错误而停止应用启动
+    
     port = int(os.environ.get('PORT', 5000))
+    print(f"🚀 启动应用，端口: {port}")
     app.run(host='0.0.0.0', port=port, debug=False)
+else:
+    # 当作为模块导入时也初始化数据库
+    with app.app_context():
+        try:
+            db.create_all()
+        except Exception as e:
+            print(f"模块导入时数据库初始化错误: {str(e)}")
