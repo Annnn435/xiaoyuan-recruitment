@@ -1,10 +1,9 @@
 {
   "version": 2,
   "name": "xiaoyuan-recruitment",
-  "buildCommand": "npm run build",
+  "buildCommand": "cd frontend && npm run build",
   "outputDirectory": "frontend/dist",
-  "installCommand": "npm install",
-  "rootDirectory": "frontend",
+  "installCommand": "cd frontend && npm install",
   "framework": "vite",
   "rewrites": [
     {
