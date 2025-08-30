@@ -1,6 +1,6 @@
 [build]
   # 构建命令
-  command = "npm run build"
+  command = "npm install && npm run build"
   
   # 发布目录
   publish = "dist"
