@@ -9,7 +9,7 @@ const queryClient = new QueryClient();
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Router basename="/xiaoyuan-recruitment">
+      <Router>
         <div style={{ padding: '20px' }}>
           <Routes>
             <Route path="/" element={<JobList />} />
