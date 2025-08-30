@@ -226,12 +226,5 @@ def init_database():
 
 # 在文件最后修改这部分
 if __name__ == '__main__':
-    with app.app_context():
-        print("正在初始化数据库...")
-        db.create_all()
-        print(f"数据库URL: {app.config['SQLALCHEMY_DATABASE_URI']}")
-        
-        # 添加端口配置
-        port = int(os.environ.get('PORT', 5000))
-        print("启动Flask应用...")
-        app.run(debug=False, host='0.0.0.0', port=port)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=False)
