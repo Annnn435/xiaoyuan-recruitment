@@ -224,13 +224,14 @@ def init_database():
         except Exception as e:
             print(f"❌ 数据库初始化错误: {str(e)}")
 
+# 在文件最后修改这部分
 if __name__ == '__main__':
-    # 打印配置信息
-    print(f"数据库URL: {app.config['SQLALCHEMY_DATABASE_URI']}")
-    
-    # 初始化数据库
-    init_database()
-    
-    # 启动应用，监听所有网络接口
-    print("启动Flask应用...")
-    app.run(debug=True, host='0.0.0.0')
+    with app.app_context():
+        print("正在初始化数据库...")
+        db.create_all()
+        print(f"数据库URL: {app.config['SQLALCHEMY_DATABASE_URI']}")
+        
+        # 添加端口配置
+        port = int(os.environ.get('PORT', 5000))
+        print("启动Flask应用...")
+        app.run(debug=False, host='0.0.0.0', port=port)
