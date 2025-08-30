@@ -22,7 +22,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "NODE_OPTIONS='--max-old-space-size=4096' npx vite build --mode production",
+    "build": "vite build",
     "preview": "vite preview"
   },
   "type": "module"
