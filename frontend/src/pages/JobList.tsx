@@ -100,8 +100,8 @@ const JobList: React.FC = () => {
         }
         
         // 发送请求
-        const baseUrl = '/api';
-        const url = `${baseUrl}/jobs${params.toString() ? `?${params.toString()}` : ''}`;
+        const baseUrl = import.meta.env.VITE_API_BASE_URL || '/api';
+        const url = `${baseUrl}/api/jobs${params.toString() ? `?${params.toString()}` : ''}`;
         
         // 添加超时处理
         const controller = new AbortController();
