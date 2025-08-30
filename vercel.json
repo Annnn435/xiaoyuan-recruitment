@@ -1,7 +1,7 @@
 {
   "version": 2,
   "name": "xiaoyuan-recruitment",
-  "buildCommand": "npm run build",
+  "buildCommand": "chmod +x ./node_modules/.bin/vite && npm run build",
   "outputDirectory": "frontend/dist",
   "installCommand": "npm install",
   "rootDirectory": "frontend",
