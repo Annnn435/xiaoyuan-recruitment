@@ -1,9 +1,12 @@
 [build]
   # 构建命令
-  command = "cd frontend && npm run build"
+  command = "npm run build"
   
   # 发布目录
-  publish = "frontend/dist"
+  publish = "dist"
+  
+  # 基础目录
+  base = "frontend"
   
   # Node.js 版本
   environment = { NODE_VERSION = "18" }
